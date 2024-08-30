@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Pendaftaran</title>
+    <style>
+        input[type="checkbox"]:active {
+            color: rgb(244, 244, 244);
+        }
+        form {
+            max-width: 600px;
+            padding: 40px;
+            border: 2px solid #000000;
+            border-radius: 16px 24px 24px 16px;
+            box-shadow: 8px 10px 15px #3b3c3d;
+            background-color: hsla(0, 0%, 100%, 0.534);
+            margin: auto auto 20px;
+        }
+        button[type="button"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #1eceff;
+            color: rgb(255, 255, 255);
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        button[type="button"]:hover {
+            background-color: #290f79;
+        }
+        button[type="button"].button-active {
+            background-color: #4d4b4b; /* Warna ketika tombol diklik */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        input::placeholder {
+            color: #4f4f4f;
+            font-style: initial;
+        }
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: rgb(0, 0, 0);
+        }
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"] {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #3f3f3f;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            color: rgb(0, 0, 0);
+            position: relative;
+            bottom: 24px;
+        }
+        select {
+            width: 120px;
+            padding: 8px;
+            border-radius: 8px;
+        }
+        div {
+            max-width: 600px;
+            padding: 20px;
+            margin: auto auto 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: medium;
+            font-weight: bold;
+            border: 1px solid #000000;
+            border-radius: 8px;
+            box-shadow: 10px 10px 15px #464748;
+            background-color: rgb(255, 255, 255);
+            color: rgb(1, 0, 0);
+        }
+        body {
+            background-color: white;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-image: url(gambar/bgcomic.jpg);
+        }
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"]:focus {
+            border: 1px solid rgb(0, 0, 0);
+            outline-color: rgb(0, 131, 253) ;
+        }
+        select#agama {
+            width: 97%;
+            padding: 8px;
+            border: 1px solid rgb(8, 8, 8);
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #3f3e3e;
+            font-size: 16px;
+            font-weight: initial;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+select#agama:focus {
+    border: 1px solid rgba(0, 48, 240, 0.854);
+    border-color: rgb(0, 131, 253);
+    background-color: #ffffff;
+}
+        .hasil{
+            position: relative;
+            top: 16px;
+        }
+
+    </style>
+</head>
+<body>
+    <form onsubmit="return">
+        <h1>Formulir Pendaftaran</h1>
+        <p>
+            <label>Email :</label>
+            <input type="email" id="email" placeholder="Masukkan email anda..." required>
+        </p>
+        <p>
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Masukan Kata Sandi...">
+            <input type="checkbox" id="showPassword" onclick="togglePassword()"> <label for="showPassword">Tampilkan Password</label>
+        <p>
+            <label>Nama :</label>
+            <input type="text" id="nama" placeholder="Masukkan nama anda..." required>
+        </p>
+        <p>
+            <label>Alamat :</label>
+            <input type="text" id="alamat" placeholder="Masukkan alamat anda..." required>
+        </p>
+        <p>
+            <label>No Telp :</label>
+            <input type="number" id="nomer" placeholder="Masukkan nomor telepon anda..." oninput="limitPhoneNumber()" required>
+        </p>
+        <p>
+            <label for="birthdate">Tanggal Lahir :</label>
+            <input type="date" id="birthdate" name="birthdate" oninput="calculateAge()" required>
+        </p>
+        <p>
+            <label for="age">Umur :</label>
+            <input type="text" id="age" name="age" readonly>
+        </p>
+        <p>
+            <label>Jenis Kelamin :</label>
+            <br>
+            <input type="radio" id="pria" name="gender" value="pria" required>
+            <label for="pria">Pria</label>
+            <br>
+            <input type="radio" id="wanita" name="gender" value="wanita" required>
+            <label for="wanita">Wanita</label> 
+        </p>
+        <p>
+            <label>Agama</label>
+            <select id="agama" name="agama" required>
+                <option value="" disabled selected>Pilih agama</option>
+                <option value="Islam">Islam</option>
+                <option value="Kristen">Kristen</option>
+                <option value="Katolik">Katolik</option>
+                <option value="Hindu">Hindu</option>
+                <option value="Buddha">Buddha</option>
+                <option value="Konghucu">Konghucu</option>
+                <option value="Lainnya">Lainnya</option>
+            </select>
+        </p>
+        <p>
+            <label>Keahlian (Max 3 Pilihan):</label><br>
+            <input type="checkbox" id="html" name="keahlian" value="HTML" onchange="limitCheckboxes(this)">
+            <label for="html">HTML</label><br>
+            <input type="checkbox" id="css" name="keahlian" value="CSS" onchange="limitCheckboxes(this)">
+            <label for="css">CSS</label><br>
+            <input type="checkbox" id="js" name="keahlian" value="JavaScript" onchange="limitCheckboxes(this)">
+            <label for="js">JavaScript</label><br>
+            <input type="checkbox" id="phyton" name="keahlian" value="Python" onchange="limitCheckboxes(this)">
+            <label for="phyton">Python</label><br>
+        </p>
+        <button type="button" id="loginButton" onclick="showResults()">Login</button>
+    </form>
+    <h1 class="hasil">Hasil</h1>
+    <div class="result" id="result"></div>
+    
+    <script>
+        const birthdate = new Date(document.getElementById('birthdate').value);
+        const today = new Date();
+
+        let f_tanggal = today.getDate().toString().padStart(2, "0");
+        let f_bulan = (today.getMonth()+1).toString().padStart(2, "0"); 
+
+        document.getElementById('birthdate').setAttribute("max", `${today.getFullYear()}-${f_bulan}-${f_tanggal}`);
+        
+        function calculateAge() {
+            const birthdate = new Date(document.getElementById('birthdate').value);
+            const today = new Date();
+            let age = today.getFullYear() - birthdate.getFullYear();
+            const monthDiff = today.getMonth() - birthdate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthdate.getDate())) {
+                age--;
+            }
+            
+
+            document.getElementById('age').value = age;
+        }
+
+        function limitCheckboxes(checkbox) {
+            const checkboxes = document.querySelectorAll('input[name="keahlian"]');
+            const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+
+            if (checkedCount > 3) {
+                alert('Anda hanya dapat memilih maksimal 3 keahlian.');
+                checkbox.checked = false;
+            }
+        }
+
+        function togglePassword(){
+            const passwordField = document.getElementById('password');
+            passwordField.type = passwordField.type === "password" ? "text" : "password";
+        }
+
+        document.getElementById('nomer').addEventListener("keyup", () => {
+            limitPhoneNumber(true);
+        });
+
+        function limitPhoneNumber(onedit) {
+            const digitInput = +document.getElementById('nomer').value.toString().length;
+
+            if (digitInput < 9) return false;
+            if (digitInput > 13) {
+                document.getElementById('nomer').value = document.getElementById('nomer').value.toString().substring(0, 13);
+                return false;
+            }
+
+            return true;
+        }
+
+        function showResults() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const nama = document.getElementById('nama').value;
+            const alamat = document.getElementById('alamat').value;
+            const nomer = document.getElementById('nomer').value;
+            const birthdate = document.getElementById('birthdate').value;
+            const age = document.getElementById('age').value;
+            const gender = document.querySelector('input[name="gender"]:checked')?.value;
+            const agama = document.getElementById('agama').value;
+            const checkedBoxes = document.querySelectorAll('input[name="keahlian"]:checked');
+            const keahlian = Array.from(checkedBoxes).map(cb => cb.value).join(', ');
+
+            if (!limitPhoneNumber()) return alert("Nomor kurang dari 9 digit");
+            if (!email.includes("@")) return alert("Email Salah");
+
+            document.getElementById('result').innerHTML = `
+                <p>Email: ${email}</p>
+                <p>Password: ${password}</p>
+                <p>Nama: ${nama}</p>
+                <p>Alamat: ${alamat}</p>
+                <p>No Telp: ${nomer}</p>
+                <p>Tanggal Lahir: ${new Date(birthdate).toLocaleDateString("id-ID", {
+                    dateStyle: "full"
+                })}</p>
+                <p>Umur: ${age}</p>
+                <p>Jenis Kelamin: ${gender}</p>
+                <p>Agama: ${agama}</p>
+                <p>Keahlian: ${keahlian}</p>
+            `;
+        }
+        document.getElementById('loginButton').addEventListener('mousedown', function() {
+    this.classList.add('button-active');
+});
+
+document.getElementById('loginButton').addEventListener('mouseup', function() {
+    this.classList.remove('button-active');
+});
+
+document.getElementById('loginButton').addEventListener('mouseleave', function() {
+    this.classList.remove('button-active');
+});
+
+    </script>
+</body>
+</html>
